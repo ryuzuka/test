@@ -1,0 +1,152 @@
+@charset "UTF-8";
+
+@function vw($target) {
+  @if $base-vw >= 1 {
+    $vw-context: ($base-vw * 0.01) * 1px;
+    @return ($target / $vw-context) * 1vw;
+  }
+  @return $target;
+}
+
+// Media queries breakpoints
+$mq-pc: 1920px;
+$mq-tb: 1024px;
+$mq-mo: 767px;
+
+// breakpoint
+@mixin pc {
+  $base-vw: 0 !global;
+  @content;
+
+  @media all and (max-width:#{$mq-pc}) {
+    $base-vw: 1920 !global;
+    @content
+  }
+
+  //@media all and (min-width:#{$mq-mo + 1}) and (max-width:#{$mq-tb}) {
+  @media all and (max-width:1510px) {
+    $base-vw: 1510 !global;
+    @content
+  }
+}
+
+@mixin tablet {
+  @media all and (max-width:#{$mq-tb}) {
+    @content
+  }
+}
+
+@mixin mobile {
+  @media all and (max-width:#{$mq-mo}) {
+    @content
+  }
+}
+
+// clear floating
+@mixin clearfix {
+  &:after{
+    display:block;
+    clear:both;
+    content:'';
+  }
+}
+
+// border-radius
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+
+// box-sizing
+@mixin box-sizing($type:border-box) {
+  -webkit-box-sizing:$type;
+  box-sizing:$type;
+}
+
+// transform
+@mixin transform($transforms) {
+  -webkit-transform: $transforms;
+  transform: $transforms;
+}
+@mixin transformOrigin($transforms) {
+  transform-origin: $transforms;
+}
+@mixin rotate($rotates) {
+  -webkit-transform: rotate(#{$rotates + deg});
+  transform: rotate(#{$rotates + deg});
+}
+@mixin scale($scales) {
+  -webkit-transform: scale($scales);
+  transform: scale($scales);
+}
+
+// icon image
+@mixin iconImg ($bgSize:350px, $x:0, $y:0, $display: inline-block, $ratio:1) {
+  display: $display;
+  background: {
+    image:url(../../images/common/icons.svg);
+    size:($bgSize * $ratio) auto;
+    repeat:no-repeat;
+    position:($x * $ratio) ($y * $ratio);
+  }
+  vertical-align:middle;
+}
+
+//ellipse
+@mixin ellipse($line) {
+  @if ($line > 1) {
+    display:-webkit-box;
+    white-space:normal;
+    word-wrap:break-word;
+    -webkit-line-clamp:$line;
+    -webkit-box-orient:vertical;
+  } @else {
+    display:block;
+    white-space:nowrap;
+  }
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+// flex setting
+@mixin flexbox {
+  display:flex;
+}
+@mixin set-middle {
+  @include flexbox;
+  align-items: center;
+}
+
+// button
+@mixin btn($color, $type:solid, $hover:'') {
+  @if $type == line {
+    border-color:$color;
+    background-color:#fff;
+    color:$color;
+    @if $hover == '' {
+      &:hover {
+        background-color:#fff;
+      }
+    } @else {
+      &:hover {
+        background-color:$hover;
+      }
+    }
+  } @else {
+    border-color:$color;
+    background-color:$color;
+    color:#fff;
+    &:hover {
+      background-color:$hover;
+    }
+  }
+}
+
+// box shadow
+@mixin box-shadow($top, $left, $blur, $color) {
+  -webkit-box-shadow:$top $left $blur $color;
+  -moz-box-shadow:$top $left $blur $color;
+  box-shadow:$top $left $blur $color;
+}

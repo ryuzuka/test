@@ -1,0 +1,257 @@
+@charset "utf-8";
+
+// button
+.btn {
+  display:inline-block;
+  padding:16px;
+  border:1px solid;
+  text-align:center;
+  &-wrap {position:relative;}
+  &-primary {@include btn($primary, $hover:#7848be);}
+  &-secondary {@include btn($primary, line);}
+  &-tertiary {@include btn(#000, line, #f4f4f4);}
+}
+
+// dropdown
+.dropdown {
+  position:relative;
+  &-btn {
+    display:block;
+    position:relative;
+    width:100%;
+    padding:10px 30px 10px 10px;
+    border:1px solid #d0d0d0;
+    text-align:left;
+  }
+  &-list {
+    display:none;
+    position:absolute;
+    top:0;
+    right:0;
+    left:0;
+    z-index:1;
+    width:100%;
+    border:1px solid #d0d0d0;
+    background-color:#fff;
+    overflow: auto;
+    max-height: 192px;
+    button, a {
+      display:block;
+      position:relative;
+      width:100%;
+      padding:10px 30px 10px 10px;
+      &:hover {background-color:#fafafa;}
+    }
+    &.active {display:block;}
+  }
+}
+
+// table
+.tbl {
+  &-list {
+    th, td {
+      padding:10px;
+      border-left:1px solid #e8e8e8;
+      border-bottom:1px solid #e8e8e8;
+      text-align:center;
+      &:first-of-type {border-left-width:0;}
+    }
+    th {
+      border-top:1px solid #e8e8e8;
+      background-color:#fafafa;
+      font-weight:$fw-default;
+    }
+  }
+  &-view {
+    border-bottom:1px solid #e8e8e8;
+    th,td {
+      padding:10px 20px;
+      border-top:1px solid #e8e8e8;
+      text-align:left;
+    }
+    th {
+      background-color:#fafafa;
+      font-weight:$fw-default;
+    }
+  }
+}
+
+// tab
+.tab {
+  &-list {
+    @include flexbox;
+    button {
+      flex:1;
+      padding:12px;
+      border:1px solid #d0d0d0;
+      &[aria-selected="true"] {
+        border-color:#000;
+        background-color:#000;
+        color:#fff;
+      }
+    }
+  }
+  &-content {
+    padding:20px;
+    &[hidden] {display:none;}
+  }
+}
+
+// accordion
+.accordion {
+  border-top:1px solid #e8e8e8;
+  border-bottom:1px solid #e8e8e8;
+  &-section {
+    &.active {
+      .accordion-content {
+        display:block;
+      }
+    }
+    &+.accordion-section {
+      border-top:1px solid #e8e8e8;
+    }
+    button {
+      display:block;
+      width:100%;
+      padding:12px;
+      text-align:left;
+    }
+  }
+  &-content {
+    display:none;
+    padding:20px;
+    border-top:1px solid #e8e8e8;
+    &.active {display:block;}
+  }
+}
+
+// paging
+.paging {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  > button, > a {
+    &[disabled] {
+      opacity:.3;
+    }
+  }
+  &-list {
+    .active,
+    [aria-current="page"] {
+      text-decoration:underline;
+    }
+  }
+  button, strong, a {
+    display:inline-block;
+    padding:4px;
+  }
+}
+
+// loading
+.loading {
+  position:absolute;
+  top:50%;
+  left:50%;
+  margin:-23px 0 0 -23px;
+  animation:rotate .7s linear infinite;
+  @keyframes rotate {
+    100% {
+      @include transform(rotate(360deg));
+    }
+  }
+  &-wrap {
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.4);
+    z-index:10;
+  }
+}
+
+// slide
+.slide {
+  position:relative;
+  margin-bottom:30px;
+  padding:0 20px;
+  .ix-list {
+    &-viewport {
+      overflow:hidden;
+      height:100px;
+    }
+    &-items {
+      position:relative; // Safari9, Samsung Browser ~4 버전에서 position을 넣지 않으면 randering bug 발생
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+    }
+    &-item {
+      float:left;
+      width:98%;
+      height:100px;
+      margin:0 1%;
+      border-radius:7px;
+      background:#0087e9;
+      text-align:center;
+      a {
+        display:block;
+        height:100%;
+        padding-top:30px;
+        color:#fff;
+        font-size:30px;
+        text-decoration:none;
+      }
+    }
+  }
+  .ix-controller {
+    &.disabled {visibility:hidden;}
+    .ix-thumbs {
+      position:absolute;
+      right:0;
+      bottom:-25px;
+      left:0;
+      text-align:center;
+    }
+    .ix-thumb {
+      display:inline-block;
+      margin:2px;
+      .ix-btn {
+        display:block;
+        width:10px;
+        height:10px;
+        border-radius:100%;
+        background:#8eaeba;
+        text-indent:-9999px;
+      }
+      &.active {
+        .ix-btn {background:#0087e9;}
+      }
+    }
+  }
+  &_direction {
+    .ix-btn-prev,
+    .ix-btn-next {
+      position:absolute;
+      top:50%;
+      width:20px;
+      height:20px;
+      margin-top:-10px;
+      background:#8eaeba;
+      text-indent:-9999px;
+      &.disabled {
+        background:#d8e0e3;
+        cursor:default;
+      }
+    }
+    .ix-btn-prev {
+      left:0;
+      border-radius:100% 0 0 100%;
+    }
+    .ix-btn-next {
+      right:0;
+      border-radius:0 100% 100% 0;
+    }
+  }
+}

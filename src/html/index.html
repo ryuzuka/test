@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  @@include('./inc/meta.html',{
+	"rootpath": "app",
+  "pagetitle": "app"
+  })
+</head>
+
+<body>
+  <div class="wrap">
+    @@include('./inc/header.html')
+ 
+    <!--: Start #contents -->
+    <div id="contents" class="contents">
+    </div>
+    <!--: End #contents -->
+
+    @@include('./inc/footer.html')
+  </div>
+
+  <!-- App -->
+  <script type="module" src="/app/js/App.js"></script>
+  <script src="/app/js/component.js"></script>
+
+  <script>
+	  // document ready
+	  window.addEventListener('DOMContentLoaded', e => {
+			
+	  })
+  </script>
+</body>
+</html>
